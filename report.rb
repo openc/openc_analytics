@@ -38,13 +38,13 @@ class StatsThing
     # Load cached discovered API, if it exists. This prevents retrieving the
     # discovery document on every run, saving a round-trip to the discovery service.
     if File.exists? CACHED_API_FILE
-      File.open(CACHED_API_FILE) do |file|
+      File.open(CACHED_API_FILE, "r") do |file|
         @analytics = Marshal.load(file)
       end
     else
-      @analytics = client.discovered_api('analytics', API_VERSION)
+      @analytics = @client.discovered_api('analytics', API_VERSION)
       File.open(CACHED_API_FILE, 'w') do |file|
-        Marshal.dump(analytics, file)
+        Marshal.dump(@analytics, file)
       end
     end
   end
