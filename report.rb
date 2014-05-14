@@ -83,6 +83,19 @@ class StatsThing
     tableoutput(visitCount)
   end
 
+  def social_interactions
+    startDate = DateTime.now.prev_day.strftime("%Y-%m-%d")
+    endDate = DateTime.now.strftime("%Y-%m-%d")
+
+    interactions = @client.execute(:api_method => @analytics.data.ga.get, :parameters => {
+      'ids' => "ga:" + @profileID,
+      'start-date' => startDate,
+      'end-date' => endDate,
+      'metrics' => "ga:socialActivities"
+    })
+    statsdoutput(interactions)
+  end
+
   def activeusers
     active = @client.execute(
       :api_method => @analytics.data.realtime.get, :parameters => {
@@ -94,4 +107,5 @@ class StatsThing
 end
 thing = StatsThing.new
 thing.activeusers
+thing.social_interactions
 #thing.visits
