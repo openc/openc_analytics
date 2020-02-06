@@ -1,1 +1,3 @@
-Command-line samples for producing reports with the Analytics API and sending to statsd.
+Command-line scripts for analytics of web page performance
+* `report.rb` - Calls Google Analytics API for "social interactions" and "active users" stats, and sends data to statsd.
+* `worst_offenders.rb` - Runs "siege" to measure response times of some particularly slow web pages, and sends data to statsd.
